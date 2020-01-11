@@ -24,5 +24,5 @@ class Search
     end
   end
 	
-
+  class InvalidType < StandardError; end
 end
