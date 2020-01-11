@@ -1,4 +1,9 @@
 #!/usr/bin/env ruby
 require_relative '../config/environment'
+require 'pry'
+
+def reload!
+  load_all './lib'
+end
 
 JobsIndeedController.new
