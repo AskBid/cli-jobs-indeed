@@ -53,10 +53,12 @@ class Scraper
 		if page.css('.icl-IconFunctional--location')[0]
 			job.location = page.css('.jobsearch-JobMetadataHeader-iconLabel')[index].text
 			index += 1
-		elsif page.css('.icl-IconFunctional--jobs')[0]
+		end
+		if page.css('.icl-IconFunctional--jobs')[0]
 			job.contract = page.css('.jobsearch-JobMetadataHeader-iconLabel')[index].text
 			index += 1
-		elsif page.css('.icl-IconFunctional--salary')[0]
+		end
+		if page.css('.icl-IconFunctional--salary')[0]
 			job.salary = page.css('.jobsearch-JobMetadataHeader-iconLabel')[index].text
 		end
 	end
