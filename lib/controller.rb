@@ -2,6 +2,7 @@ class JobsIndeedController
 	def initialize
     puts "Welcome to Jobs Indeed!!!"
 
-    Scraper.new()
+    s1 = Scraper.new().search
+    binding.pry
   end
 end

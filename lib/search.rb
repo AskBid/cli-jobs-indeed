@@ -13,7 +13,7 @@ class Search
 	end
 
 	def jobs
-	    @jobs.dup.freeze
+	  @jobs.dup.freeze
 	end
 
 	def add_job(job)

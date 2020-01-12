@@ -1,10 +1,11 @@
 class Company
-	attr_accessor :name, :url, :rating
+	attr_accessor :name, :url, :rating, :reviews, :jobs
 
 	@@all = []
 
 	def initialize(name)
 		@name = name
+		@jobs = []
 	end
 
 	def self.find_by_name(name)
@@ -21,5 +22,4 @@ class Company
 	def self.find_or_create(name, url = nil)
 		find_by_name(name) || create(name, url)
 	end
-
 end
