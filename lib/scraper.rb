@@ -5,9 +5,11 @@ class Scraper
 
 	def initialize( position = 'Full Stack Developer', city = 'London' )
 		position = dash_words(position)
-		@page = Nokogiri::HTML( open("#{BASE}/#{position}-jobs-in-#{city}") )
+		url = "#{BASE}/#{position}-jobs-in-#{city}"
+		@page = Nokogiri::HTML( open(url) )
 		
 		@search = Search.new
+		@search.url = url
 		@search.position = position
 		@search.city = city
 

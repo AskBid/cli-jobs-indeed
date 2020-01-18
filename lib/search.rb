@@ -1,5 +1,5 @@
 class Search
-	attr_accessor :position, :city
+	attr_accessor :position, :city, :url
 
 	@@all = []
 
