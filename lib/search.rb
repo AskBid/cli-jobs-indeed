@@ -5,6 +5,7 @@ class Search
 	@@all = []
 
 	def initialize(url)
+		@url = url
 		@jobs = []
 	end
 
@@ -26,13 +27,6 @@ class Search
 
   def merge(new_search)
   end
-
-  def self.find_by_name(url)
-  	puts url
-		self.all.find {|obj| 
-			puts obj.url
-			obj.url == url}
-	end
 	
   class InvalidType < StandardError; end
 end

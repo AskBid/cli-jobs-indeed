@@ -10,7 +10,6 @@ class Scraper
 		@page = Nokogiri::HTML( open(url) )
 		
 		@search = Search.find_or_create(url)
-		@search.url = url
 		@search.position = position
 		@search.city = city
 

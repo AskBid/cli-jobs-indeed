@@ -9,18 +9,18 @@ Bundler.require
 
 module Concerns
 	module Findable
-		def find_by_name(name)
-			self.all.find {|obj| obj.name == name}
+		def find_by_id(id)
+			self.all.find {|obj| obj.url == id}
 		end
 
-		def create(name)
-			obj = self.new(name)
+		def create(id)
+			obj = self.new(id)
 			self.all << obj
 			obj
 		end
 
-		def find_or_create(name)
-			find_by_name(name) || create(name)
+		def find_or_create(id)
+			find_by_id(id) || create(id)
 		end
 	end
 end
