@@ -7,7 +7,8 @@ class ScraperJob
 			@job = Job.new
 			@job.url = url
 			scrape_job_details
-		rescue
+		rescue StandardError => e
+			puts e
 			puts "a job url wasn't working... we pass to the next job."
 		end
 	end
