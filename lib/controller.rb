@@ -41,11 +41,11 @@ class JobsIndeedController
   end
 
   def new_search
-  	input_search
+  	Search.update_or_create(input_search)
   end
 
-  def merge_search
-  	@@all << input_search
+  def merge_searches
+  	
   end
 
   def main_menu

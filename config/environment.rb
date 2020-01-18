@@ -15,12 +15,25 @@ module Concerns
 
 		def create(id)
 			obj = self.new(id)
-			self.all << obj
+			save(obj)
 			obj
 		end
 
 		def find_or_create(id)
 			find_by_id(id) || create(id)
+		end
+
+		def update_or_create(obj)
+			existing = find_by_id(obj.url)
+			if existing
+				existin = obj
+			else
+				save(obj)
+			end
+		end
+
+		def save(obj)
+			self.all << obj
 		end
 	end
 end

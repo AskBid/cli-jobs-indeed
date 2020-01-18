@@ -26,7 +26,6 @@ class Search
   end
 
   def merge(new_search)
-  	
   end
 	
   class InvalidType < StandardError; end
