@@ -1,5 +1,7 @@
 class JobsIndeedController
 
+	@@all = []
+
 	def initialize
 		puts ""
 		puts ""
@@ -13,8 +15,8 @@ class JobsIndeedController
     new_search
 
 		puts ""
-    puts "last search found #{Search.@@all.last.jobs.size} jobs"
-    puts "you currently have #{Search.@@all.size} searches"
+    puts "last search found #{@@all.last.jobs.size} jobs"
+    puts "you currently have #{@@all.size} searches"
 
     main_menu
   end
