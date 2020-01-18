@@ -4,8 +4,7 @@ class ScraperJob
 	def initialize(url)
 		begin 
 			@page = Nokogiri::HTML(open(url))
-			@job = Job.new
-			@job.url = url
+			@job = Job.find_or_create(url)
 			scrape_job_details
 		rescue StandardError => e
 			puts e
