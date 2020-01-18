@@ -46,20 +46,33 @@ class ScraperJob
 			index += 1
 		end
 		if @page.css('.icl-IconFunctional--salary')[0]
-			@job.salary = @page.css('.jobsearch-JobMetadataHeader-iconLabel')[index].text
-			reformat_salary
+			salary = reformat_salary(@page.css('.jobsearch-JobMetadataHeader-iconLabel')[index].text)
+			@job.salary = salary if salary
 		end
 	end
 
-	def reformat_salary
-		str = @job.salary.split(' - ').last
+	def reformat_salary(salary_str)
+		str = salary_str.split(' - ').last
+		salary = nil
 		case str.scan(/[a-zA-Z]/).join()
 			when 'ayear'
-				puts str
-			when 'anhour'
-				puts str
+				salary = salary_to_i(str)
+			when 'amonth'
+				salary = salary_to_i(str) * 12
 			when 'aday'
-				puts str
+				salary = salary_to_i(str) * 253
+			when 'anhour'
+				salary = salary_to_i(str) * 1880
 		end
+		salary
+	end
+
+	def salary_to_i(str)
+		str.scan(/[0-9]/).join().to_i
 	end
 end
+
+
+
+
+
