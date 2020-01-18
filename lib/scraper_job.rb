@@ -11,7 +11,6 @@ class ScraperJob
 	def scrape_job_details
 		@job.title = @page.css('h3.jobsearch-JobInfoHeader-title').text
 		# @job.description = @page.css('.jobsearch-jobDescriptionText').first
-		puts "I was here first"
 		@job.company = scrape_company_from_job_page
 		job_details_hunter
 	end
@@ -37,8 +36,6 @@ class ScraperJob
 	end															
 
 	def job_details_hunter
-		puts "I was here"
-		# binding.pry
 		index = 0
 		if @page.css('.icl-IconFunctional--location')[0]
 			@job.location = @page.css('.jobsearch-JobMetadataHeader-iconLabel')[index].text
@@ -50,6 +47,19 @@ class ScraperJob
 		end
 		if @page.css('.icl-IconFunctional--salary')[0]
 			@job.salary = @page.css('.jobsearch-JobMetadataHeader-iconLabel')[index].text
+			reformat_salary
+		end
+	end
+
+	def reformat_salary
+		str = @job.salary.split(' - ').last
+		case str.scan(/[a-zA-Z]/).join()
+			when 'ayear'
+				puts str
+			when 'anhour'
+				puts str
+			when 'aday'
+				puts str
 		end
 	end
 end

@@ -15,7 +15,9 @@ class Scraper
 
 		scrape_jobs_urls.each {|job_url| 
 			job = ScraperJob.new(job_url).job
-			@search.add_job(job)
+			if job.salary
+				@search.add_job(job)
+			end
 		}
 	end
 

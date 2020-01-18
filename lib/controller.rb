@@ -18,7 +18,6 @@ class JobsIndeedController
     	puts "salary: #{job.salary}"
     	puts "#{job.contract}"
     	puts "company: #{job.company.name}"
-    	puts ":::::::::::::::::::::::::"
     }
     # binding.pry
   end
