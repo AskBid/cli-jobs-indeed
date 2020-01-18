@@ -5,6 +5,7 @@ class Scraper
 
 	def initialize( position = 'Full Stack Developer', city = 'London' )
 		position = dash_words(position)
+		city = dash_words(city)
 		url = "#{BASE}/#{position}-jobs-in-#{city}"
 		@page = Nokogiri::HTML( open(url) )
 		
@@ -15,7 +16,7 @@ class Scraper
 
 		scrape_jobs_urls.each {|job_url| 
 			job = ScraperJob.new(job_url).job
-			if job.salary
+			if job && job.salary
 				@search.add_job(job)
 			end
 		}

@@ -2,10 +2,14 @@ class ScraperJob
 	attr_accessor :job
 
 	def initialize(url)
-		@page = Nokogiri::HTML(open(url))
-		@job = Job.new
-		@job.url = url
-		scrape_job_details
+		begin 
+			@page = Nokogiri::HTML(open(url))
+			@job = Job.new
+			@job.url = url
+			scrape_job_details
+		rescue
+			puts "a job url wasn't working... we pass to the next job."
+		end
 	end
 
 	def scrape_job_details
@@ -68,11 +72,6 @@ class ScraperJob
 	end
 
 	def salary_to_i(str)
-		str.scan(/[0-9]/).join().to_i
+		str.scan(/[0-9.]/).join().to_i
 	end
 end
-
-
-
-
-
