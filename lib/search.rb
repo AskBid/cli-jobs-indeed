@@ -25,7 +25,10 @@ class Search
     end
   end
 
-  def merge(new_search)
+  def merge(search2merge)
+  	search2merge.jobs.each {|job2merge| self.add_job(job2merge)}
+  	self.position =+ " + #{search2merge.position}"
+  	self.city =+ " + #{search2merge.city}"
   end
 	
   class InvalidType < StandardError; end
