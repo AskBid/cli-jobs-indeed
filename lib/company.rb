@@ -16,4 +16,8 @@ class Company
 	def self.all
 		@@all
 	end
+
+	def jobs
+		Job.all.select {|job| job.company.name == self.name}
+	end
 end

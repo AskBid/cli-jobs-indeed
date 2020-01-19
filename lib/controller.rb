@@ -100,9 +100,12 @@ class JobsIndeedController
     puts "check company rating".colorize(:yellow)
 
     print "7: ".colorize(:light_yellow)
-    puts "List searches".colorize(:yellow)
+    puts "list all the jobs for a company".colorize(:yellow)
 
     print "8: ".colorize(:light_yellow)
+    puts "List searches".colorize(:yellow)
+
+    print "9: ".colorize(:light_yellow)
     puts "quit! (your job?)".colorize(:yellow)
     puts "...".colorize(:light_blue)
 
@@ -129,9 +132,12 @@ class JobsIndeedController
     		company_rating
     		main_menu
     	when '7'
-    		list_searches
+    		company_jobs
     		main_menu
     	when '8'
+    		list_searches
+    		main_menu
+    	when '9'
     		puts "--------------------------------------".colorize(:light_blue)
     		puts "!!!                                !!!".colorize(:light_blue)
     		puts '   We wish you the best of luck! :)'.colorize(:light_magenta)
@@ -188,7 +194,23 @@ class JobsIndeedController
   	puts "----------------------------------------------------------".colorize(:light_blue)
   	puts ""
 
-  	search.jobs.each_with_index { |job, i|
+  	print_jobs(search.jobs)
+		
+		condition = true
+  	while condition
+  		puts "Choose a Job to show its Description:".colorize(:light_yellow)
+	    puts " (enter number or anything else to show main menu)".colorize(:light_black)
+	    puts "...".colorize(:light_blue)
+
+  		job_index = gets.strip.to_i
+  		condition = job_index > 0 && job_index <= search.jobs.size
+  		i = job_index - 1
+  		show_job_description(search.jobs[i]) if condition
+  	end
+  end
+
+  def print_jobs(jobs)
+  	jobs.each_with_index { |job, i|
   		puts "#{i + 1}.".colorize(:light_yellow)
   		print "  title  : ".colorize(:light_black)
   		puts "#{job.title}".colorize(:light_red)
@@ -203,18 +225,6 @@ class JobsIndeedController
   		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
     }
 		puts ""
-		
-		condition = true
-  	while condition
-  		print "Choose a Job to show its Description:".colorize(:light_yellow)
-	    puts " (enter number or anything else to show main menu)".colorize(:light_black)
-	    puts "...".colorize(:light_blue)
-
-  		job_index = gets.strip.to_i
-  		condition = job_index > 0 && job_index <= search.jobs.size
-  		i = job_index - 1
-  		show_job_description(search.jobs[i]) if condition
-  	end
   end
 
   def show_job_description(job)
@@ -223,6 +233,9 @@ class JobsIndeedController
   	puts "...".colorize(:blue)
   	puts texts[0].colorize(:blue)
   	puts "...".colorize(:blue)
+  	puts "  for more details visit the job posting URL: ".colorize(:light_black)
+		puts "#{job.url}".colorize(:black)
+		puts "...".colorize(:blue)
   end
 
   def average_salaries
@@ -263,19 +276,23 @@ class JobsIndeedController
   end
 
   def company_rating
-  	print "type a Company name:".colorize(:light_yellow)
-    puts " (enter the exact company name or anything else to go back to main menu)".colorize(:light_black)
-    puts "...".colorize(:light_blue)
-    name_input = gets.strip
-    company = Company.find_by_id(name_input)
+  	company = select_company
     if company
-    	visualise_company(company)
+    	print_company(company)
     else
     	puts "No Company was found with #{name_input} as name"
     end
   end
 
-  def visualise_company(company)
+  def select_company
+  	print "type a Company name:".colorize(:light_yellow)
+    puts " (enter the exact company name or anything else to go back to main menu)".colorize(:light_black)
+    puts "...".colorize(:light_blue)
+    name_input = gets.strip
+    Company.find_by_id(name_input)
+  end
+
+  def print_company(company)
   	puts "----------------------------------------------------------".colorize(:light_blue)
   	puts "::::::::::::::::::: Company Summary ::::::::::::::::::::::".colorize(:light_blue)
   	puts "----------------------------------------------------------".colorize(:light_blue)
@@ -284,8 +301,17 @@ class JobsIndeedController
 		print "  rating: ".colorize(:light_black)
 		puts "#{company.rating}".colorize(:light_cyan)
 		puts "  for more details visit company URL: ".colorize(:light_black)
-		puts "#{company.url}".colorize(:light_black)
+		puts "#{company.url}".colorize(:black)
 		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
+  end
+
+  def company_jobs
+  	company = select_company
+  	jobs = company.jobs if company
+  	if jobs
+  		print_company(company)
+  		print_jobs(jobs)
+  	end
   end
 
   def display_currency(number)
