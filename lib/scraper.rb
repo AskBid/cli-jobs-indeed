@@ -14,7 +14,7 @@ class Scraper
 		@search.city = city
 
 		scrape_jobs_urls.each {|job_url| 
-			job = ScraperJob.find_or_create(job_url).job
+			job = ScraperJob.new(job_url).job
 			if job && job.salary
 				@search.add_job(job)
 			end
