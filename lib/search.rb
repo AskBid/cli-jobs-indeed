@@ -30,6 +30,12 @@ class Search
   	self.position =+ " + #{search2merge.position}"
   	self.city =+ " + #{search2merge.city}"
   end
+
+  def average
+  	total = 0 
+  	jobs.each {|job| total += job.salary }
+  	total / jobs.size
+  end
 	
   class InvalidType < StandardError; end
 end
