@@ -7,7 +7,7 @@ class JobsIndeedController
 		puts ""
 		puts ""
 		puts "------------------------------------------------------------".colorize(:light_blue)
-    puts "                Welcome to Jobs Indeed!!! ".colorize(:light_blue)
+    puts "                Welcome to Jobs Indeed CLI!!! ".colorize(:light_blue)
     puts "------------------------------------------------------------".colorize(:light_blue)
     puts ""
     puts ""
@@ -62,10 +62,11 @@ class JobsIndeedController
 	  	puts "...".colorize(:light_blue)
 	  	index = gets.strip.to_i
 	  	if index < 1 && index > Search.all.size
+	  		wrong_input_msg
 	  		merge_searches
 	  	end
 	  end
-	  index =- 1
+	  index -= 1
 	  initial_jobs = Search.all[index].jobs.size
 	  Search.all[index].merge(input_search)
 
@@ -77,7 +78,7 @@ class JobsIndeedController
 
   def main_menu
   	puts ""
-    print "chose an action:".colorize(:light_yellow)
+    print "Choose an action:".colorize(:light_yellow)
     puts " (enter number)".colorize(:light_black)
     puts ""
     print "1: ".colorize(:light_yellow)
@@ -85,7 +86,7 @@ class JobsIndeedController
     print "2: ".colorize(:light_yellow)
     puts "extend existing search".colorize(:yellow)
     print "3: ".colorize(:light_yellow)
-    puts "list jobs of one search".colorize(:yellow)
+    puts "list jobs for an existing Search".colorize(:yellow)
     print "4: ".colorize(:light_yellow)
     puts "compare average salaries of each search".colorize(:yellow)
     print "5: ".colorize(:light_yellow)
@@ -97,13 +98,18 @@ class JobsIndeedController
     print "8: ".colorize(:light_yellow)
     puts "quit! (your job?)".colorize(:yellow)
     puts "...".colorize(:light_blue)
+
     action = gets.strip
+
     case action
     	when '1'
     		new_search
     		main_menu
     	when '2'
     		merge_searches
+    		main_menu
+    	when '3'
+    		list_jobs
     		main_menu
     	when '7'
     		list_searches
@@ -113,7 +119,7 @@ class JobsIndeedController
     		puts 'We wish you the best of luck! :)'.colorize(:light_magenta)
     		puts "!!! the end !!!".colorize(:light_blue)
     	else
-    		puts 'you insert the wrong action/input'.colorize(:light_magenta)
+    		wrong_input_msg
     		puts 'please choose between one of the listed numbers:'.colorize(:light_magenta)
     		main_menu
     end
@@ -137,13 +143,68 @@ class JobsIndeedController
   end
 
   def list_jobs
-  	# s1.jobs.each {|job| 
-    # 	puts ":::::::::::::::::::::::::"
-    # 	puts "#{job.title}"
-    # 	puts "location: #{job.location}"
-    # 	puts "salary: #{job.salary}"
-    # 	puts "#{job.contract}"
-    # 	puts "company: #{job.company.name}"
-    # }
+  	search_index = 1
+
+  	if Search.all.size > 1
+	  	list_searches
+	  	puts ""
+	    print "Choose a Search to show its Jobs:".colorize(:light_yellow)
+	    puts " (enter number)".colorize(:light_black)
+	    puts "...".colorize(:light_blue)
+	    search_index = gets.strip.to_i
+	  	if index < 1 && index > Search.all.size
+	  		wrong_input_msg
+	  		list_jobs
+	  	end
+	  end
+
+  	search_index -= 1
+
+  	search = Search.all[search_index]
+
+  	puts "----------------------------------------------------------".colorize(:light_blue)
+  	puts "#{search.position}".colorize(:red)
+  	puts ":::::::::::::::::::::::: JOBS in :::::::::::::::::::::::::".colorize(:light_blue)
+  	puts "#{search.city}".colorize(:red)
+  	puts "----------------------------------------------------------".colorize(:light_blue)
+  	puts ""
+
+  	search.jobs.each_with_index {|job, i|
+  		puts "#{i + 1}.".colorize(:light_yellow)
+  		print "  title  : ".colorize(:light_black)
+  		puts "#{job.title}".colorize(:red)
+  		print "  in     : ".colorize(:light_black)
+  		puts "#{job.location}".colorize(:red)
+  		print "  company: ".colorize(:light_black)
+  		puts "#{job.company.name}".colorize(:red)
+  		print "  terms  : ".colorize(:light_black)
+  		puts "#{job.contract ? job.contract : "N/A"}".colorize(:red)
+  		print "  salary : ".colorize(:light_black)
+  		puts "£#{job.salary}".colorize(:red)
+  		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
+    }
+		puts ""
+		
+		condition = true
+  	while condition
+  		print "Choose a Job to show its Description:".colorize(:light_yellow)
+	    puts " (enter number or anything else to show main menu)".colorize(:light_black)
+	    puts "...".colorize(:light_blue)
+  		job_index = gets.strip.to_i
+  		condition = job_index > 0 && job_index < search.jobs.size
+  		i = job_index - 1
+  		show_job_description(search.jobs[i]) unless condition
+  	end
   end
+
+  def show_job_description(job)
+  	# binding.pry
+  	job.description.each {|element| element}
+  end
+
+  def wrong_input_msg
+  	puts "X X X X X X X X X".colorize(:light_blue)
+		puts 'you insert the wrong action/input'.colorize(:light_magenta)
+		puts "X X X X X X X X X".colorize(:light_blue)
+	end
 end

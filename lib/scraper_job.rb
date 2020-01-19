@@ -14,7 +14,7 @@ class ScraperJob
 
 	def scrape_job_details
 		@job.title = @page.css('h3.jobsearch-JobInfoHeader-title').text
-		# @job.description = @page.css('.jobsearch-jobDescriptionText').first
+		@job.description = @page.css('.jobsearch-jobDescriptionText').first
 		@job.company = scrape_company_from_job_page
 		job_details_hunter
 	end
