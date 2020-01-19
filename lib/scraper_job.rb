@@ -24,7 +24,8 @@ class ScraperJob
 		if company_div.children.size > 1 
 			#company has a company page
 			url = company_div.css('a').first.attribute('href').value
-			co = Company.find_or_create(company_div.text)
+			co = Company.find_or_create(company_div.css('a')[0].text)
+			# binding.pry
 			if !co.url
 				co.url = url
 			end
