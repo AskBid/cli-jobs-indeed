@@ -26,7 +26,7 @@ module Concerns
 		def update_or_create(obj)
 			existing = find_by_id(obj.url)
 			if existing
-				existin = obj
+				existing = obj
 			else
 				save(obj)
 			end
