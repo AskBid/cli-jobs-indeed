@@ -3,6 +3,8 @@ require 'bundler'
 require 'open-uri'
 require 'nokogiri'
 
+require 'colorize'
+
 require 'pry'
 
 Bundler.require
