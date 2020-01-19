@@ -15,12 +15,7 @@ class JobsIndeedController
     new_search
     list_searches
 
-		# puts ""
-  #   puts "last search found #{.last.jobs.size} jobs"
-  #   puts "you currently have #{@@all.size} searches"
-
     main_menu
-    binding.pry
   end
 
   def input_search
@@ -52,6 +47,11 @@ class JobsIndeedController
 
   def new_search
   	Search.update_or_create(input_search)
+
+  	puts ""
+	  print "Last search found ".colorize(:yellow)
+	  puts "#{Search.all.last.jobs.size} jobs".colorize(:light_red)
+	  puts ""
   end
 
   def merge_searches
@@ -115,9 +115,11 @@ class JobsIndeedController
     		list_searches
     		main_menu
     	when '8'
-    		puts "!!!         !!!".colorize(:light_blue)
-    		puts 'We wish you the best of luck! :)'.colorize(:light_magenta)
-    		puts "!!! the end !!!".colorize(:light_blue)
+    		puts "--------------------------------------".colorize(:light_blue)
+    		puts "!!!                                !!!".colorize(:light_blue)
+    		puts '   We wish you the best of luck! :)'.colorize(:light_magenta)
+    		puts "!!!            the end             !!!".colorize(:light_blue)
+    		puts "--------------------------------------".colorize(:light_blue)
     	else
     		wrong_input_msg
     		puts 'please choose between one of the listed numbers:'.colorize(:light_magenta)
@@ -152,7 +154,7 @@ class JobsIndeedController
 	    puts " (enter number)".colorize(:light_black)
 	    puts "...".colorize(:light_blue)
 	    search_index = gets.strip.to_i
-	  	if index < 1 && index > Search.all.size
+	  	if search_index < 1 && search_index > Search.all.size
 	  		wrong_input_msg
 	  		list_jobs
 	  	end
@@ -190,16 +192,20 @@ class JobsIndeedController
   		print "Choose a Job to show its Description:".colorize(:light_yellow)
 	    puts " (enter number or anything else to show main menu)".colorize(:light_black)
 	    puts "...".colorize(:light_blue)
+
   		job_index = gets.strip.to_i
-  		condition = job_index > 0 && job_index < search.jobs.size
+  		condition = job_index > 0 && job_index <= search.jobs.size
   		i = job_index - 1
-  		show_job_description(search.jobs[i]) unless condition
+  		show_job_description(search.jobs[i]) if condition
   	end
   end
 
   def show_job_description(job)
-  	# binding.pry
-  	job.description.each {|element| element}
+  	puts "here is the description:".colorize(:light_yellow)
+  	texts = job.description.css('ul' || 'li' ||  'div' || 'p').map(&:text)
+  	puts "...".colorize(:blue)
+  	puts texts[0].colorize(:blue)
+  	puts "...".colorize(:blue)
   end
 
   def wrong_input_msg
