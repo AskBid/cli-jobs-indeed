@@ -8,6 +8,6 @@ class ScraperCo
 	end
 
 	def scrape_co_details
-		@company.rating = @page.css('span.cmp-header-rating-average').text
+		@company.rating = @page.css('.cmp-CompanyRatings-value').text
 	end
 end

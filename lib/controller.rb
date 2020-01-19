@@ -266,7 +266,26 @@ class JobsIndeedController
   	print "type a Company name:".colorize(:light_yellow)
     puts " (enter the exact company name or anything else to go back to main menu)".colorize(:light_black)
     puts "...".colorize(:light_blue)
-    company = Company.find_by_id(gets.strip)
+    name_input = gets.strip
+    company = Company.find_by_id(name_input)
+    if company
+    	visualise_company(company)
+    else
+    	puts "No Company was found with #{name_input} as name"
+    end
+  end
+
+  def visualise_company(company)
+  	puts "----------------------------------------------------------".colorize(:light_blue)
+  	puts "::::::::::::::::::: Company Summary ::::::::::::::::::::::".colorize(:light_blue)
+  	puts "----------------------------------------------------------".colorize(:light_blue)
+  	print "  name  : ".colorize(:light_black)
+		puts "#{company.name}".colorize(:light_red)
+		print "  rating: ".colorize(:light_black)
+		puts "#{company.rating}".colorize(:light_cyan)
+		puts "  for more details visit company URL: ".colorize(:light_black)
+		puts "#{company.url}".colorize(:light_black)
+		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
   end
 
   def display_currency(number)
