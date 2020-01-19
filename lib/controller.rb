@@ -4,13 +4,14 @@ class JobsIndeedController
 		puts ""
 		puts ""
 		puts ""
-		puts "---------------------------"
-    puts " Welcome to Jobs Indeed!!! "
-    puts "---------------------------"
+		puts "------------------------------------------------------------"
+    puts "                Welcome to Jobs Indeed!!! "
+    puts "------------------------------------------------------------"
     puts ""
     puts ""
 
     new_search
+    list_searches
 
 		# puts ""
   #   puts "last search found #{.last.jobs.size} jobs"
@@ -45,7 +46,7 @@ class JobsIndeedController
   end
 
   def merge_searches
-  	
+  	list_searches
   end
 
   def main_menu
@@ -62,9 +63,11 @@ class JobsIndeedController
     action = gets.strip
     case action
     	when '1'
-    		new_search 
+    		new_search
+    		main_menu
     	when '2'
-    		puts 'we shall see'
+    		merge_searches
+    		main_menu
     	when '6'
     		puts 'We wish you the best of luck! :)'
     	else
@@ -75,7 +78,16 @@ class JobsIndeedController
   end
 
   def list_searches
-
+  	puts ""
+  	     "------------------------------------------------------------"
+  	puts "::::::::::::::::::: existing searches ::::::::::::::::::::::"
+  	Search.all.each_with_index {|search, i| 
+  		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  		puts "#{i + 1}."
+  		puts "title: #{search.position}"
+  		puts "in   : #{search.city}"
+  	}
+  	puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   end
 
   def list_jobs
