@@ -4,6 +4,7 @@ require 'open-uri'
 require 'nokogiri'
 
 require 'colorize'
+# require 'FriendlyNumbers'
 
 require 'pry'
 

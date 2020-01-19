@@ -1,5 +1,4 @@
 class JobsIndeedController
-
 	def initialize
 		String.disable_colorization = false
 
@@ -81,20 +80,28 @@ class JobsIndeedController
     print "Choose an action:".colorize(:light_yellow)
     puts " (enter number)".colorize(:light_black)
     puts ""
+
     print "1: ".colorize(:light_yellow)
     puts "make another search".colorize(:yellow)
+
     print "2: ".colorize(:light_yellow)
     puts "extend existing search".colorize(:yellow)
+
     print "3: ".colorize(:light_yellow)
     puts "list jobs for an existing Search".colorize(:yellow)
+
     print "4: ".colorize(:light_yellow)
-    puts "compare average salaries of each search".colorize(:yellow)
+    puts "compare average salaries for each search".colorize(:yellow)
+
     print "5: ".colorize(:light_yellow)
     puts "get highest paid job".colorize(:yellow)
+
     print "6: ".colorize(:light_yellow)
     puts "check company rating".colorize(:yellow)
+
     print "7: ".colorize(:light_yellow)
     puts "List searches".colorize(:yellow)
+
     print "8: ".colorize(:light_yellow)
     puts "quit! (your job?)".colorize(:yellow)
     puts "...".colorize(:light_blue)
@@ -104,12 +111,22 @@ class JobsIndeedController
     case action
     	when '1'
     		new_search
+    		list_searches
     		main_menu
     	when '2'
     		merge_searches
     		main_menu
     	when '3'
     		list_jobs
+    		main_menu
+    	when '4'
+    		average_salaries
+    		main_menu
+    	when '5'
+    		highest_salary
+    		main_menu
+    	when '6'
+    		company_rating
     		main_menu
     	when '7'
     		list_searches
@@ -182,7 +199,7 @@ class JobsIndeedController
   		print "  terms  : ".colorize(:light_black)
   		puts "#{job.contract ? job.contract : "N/A"}".colorize(:red)
   		print "  salary : ".colorize(:light_black)
-  		puts "£#{job.salary}".colorize(:red)
+  		puts "#{display_currency(job.salary)}".colorize(:red)
   		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
     }
 		puts ""
@@ -206,6 +223,22 @@ class JobsIndeedController
   	puts "...".colorize(:blue)
   	puts texts[0].colorize(:blue)
   	puts "...".colorize(:blue)
+  end
+
+  def average_salaries
+  	Search.all.map
+  end
+
+  def highest_salary
+
+  end
+
+  def company_rating
+
+  end
+
+  def display_currency(number)
+  	FriendlyNumbers.number_to_currency(number, unit: "£")
   end
 
   def wrong_input_msg
