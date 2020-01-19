@@ -188,18 +188,18 @@ class JobsIndeedController
   	puts "----------------------------------------------------------".colorize(:light_blue)
   	puts ""
 
-  	search.jobs.each_with_index {|job, i|
+  	search.jobs.each_with_index { |job, i|
   		puts "#{i + 1}.".colorize(:light_yellow)
   		print "  title  : ".colorize(:light_black)
-  		puts "#{job.title}".colorize(:red)
+  		puts "#{job.title}".colorize(:light_red)
   		print "  in     : ".colorize(:light_black)
   		puts "#{job.location}".colorize(:red)
   		print "  company: ".colorize(:light_black)
-  		puts "#{job.company.name}".colorize(:red)
+  		puts "#{job.company.name}".colorize(:light_red)
   		print "  terms  : ".colorize(:light_black)
   		puts "#{job.contract ? job.contract : "N/A"}".colorize(:red)
   		print "  salary : ".colorize(:light_black)
-  		puts "#{display_currency(job.salary)}".colorize(:red)
+  		puts "#{display_currency(job.salary)}".colorize(:light_red)
   		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
     }
 		puts ""
@@ -226,15 +226,47 @@ class JobsIndeedController
   end
 
   def average_salaries
-  	Search.all.map
+  	puts ""
+  	puts "----------------------------------------------------------".colorize(:light_blue)
+  	puts "::::::::::::::: average salary per search ::::::::::::::::".colorize(:light_blue)
+  	Search.all.each_with_index {|search, i| 
+  		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
+  		puts "#{i + 1}.".colorize(:light_yellow)
+  		print "  title: ".colorize(:light_black)
+  		puts "#{search.position}".colorize(:red)
+  		print "  in   : ".colorize(:light_black)
+  		puts "#{search.city}".colorize(:red)
+  		print "  jobs : ".colorize(:light_black)
+  		puts "#{search.jobs.size}".colorize(:red)
+  		print "  AVERAGE SALARY: ".colorize(:light_black)
+  		puts "#{display_currency(search.average)}".colorize(:light_cyan)
+  	}
+  	puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
   end
 
   def highest_salary
-
+  	job = Job.all.select{|job| job.salary}.max{|x, y| x.salary <=> y.salary}
+  	puts "----------------------------------------------------------".colorize(:light_blue)
+  	puts "::::::::::::::::::: Highest Paid Job :::::::::::::::::::::".colorize(:light_blue)
+  	puts "----------------------------------------------------------".colorize(:light_blue)
+  	print "  title  : ".colorize(:light_black)
+		puts "#{job.title}".colorize(:light_red)
+		print "  in     : ".colorize(:light_black)
+		puts "#{job.location}".colorize(:red)
+		print "  company: ".colorize(:light_black)
+		puts "#{job.company.name}".colorize(:light_red)
+		print "  terms  : ".colorize(:light_black)
+		puts "#{job.contract ? job.contract : "N/A"}".colorize(:red)
+		print "  salary : ".colorize(:light_black)
+		puts "#{display_currency(job.salary)}".colorize(:light_cyan)
+		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
   end
 
   def company_rating
-
+  	print "type a Company name:".colorize(:light_yellow)
+    puts " (enter the exact company name or anything else to go back to main menu)".colorize(:light_black)
+    puts "...".colorize(:light_blue)
+    company = Company.find_by_id(gets.strip)
   end
 
   def display_currency(number)
