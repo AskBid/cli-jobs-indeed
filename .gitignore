@@ -7,5 +7,5 @@
 /spec/reports/
 /tmp/
 *.gemspec
-*.lock
+Gemfile.lock
 .gitignore
