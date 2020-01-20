@@ -141,7 +141,7 @@ class JobsIndeedController
     	when '9'
     		puts "--------------------------------------".colorize(:light_blue)
     		puts "!!!                                !!!".colorize(:light_blue)
-    		puts '   We wish you the best of luck! :)'.colorize(:light_magenta)
+    		puts '   We wish you the best of luck! :)   '.colorize(:light_magenta)
     		puts "!!!            the end             !!!".colorize(:light_blue)
     		puts "--------------------------------------".colorize(:light_blue)
     	else
@@ -222,7 +222,7 @@ class JobsIndeedController
   		print "  terms  : ".colorize(:light_black)
   		puts "#{job.contract ? job.contract : "N/A"}".colorize(:red)
   		print "  salary : ".colorize(:light_black)
-  		puts "#{display_currency(job.salary)}".colorize(:light_red)
+  		puts "#{display_currency(job.salary)}".colorize(:cyan)
   		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
     }
 		puts ""
