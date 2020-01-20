@@ -118,6 +118,7 @@ class JobsIndeedController
     		main_menu
     	when '2'
     		merge_searches
+        list_searches
     		main_menu
     	when '3'
     		list_jobs
