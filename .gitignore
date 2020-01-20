@@ -8,4 +8,4 @@
 /tmp/
 *.gemspec
 Gemfile.lock
-.gitignore
+*.gitignore
