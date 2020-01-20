@@ -6,6 +6,8 @@ class Company
 
 	def initialize(name)
 		@name = name
+		@url = "N/A"
+		@rating = "N/A"
 	end
 
 	#company sometime don't have an url therefore the 'id' is the 'name' instead

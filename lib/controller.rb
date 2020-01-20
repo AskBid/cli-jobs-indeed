@@ -18,6 +18,7 @@ class JobsIndeedController
   end
 
   def input_search
+    puts ""
   	puts "Enter the job title/position you would like to look for:".colorize(:light_yellow)
     puts "(i.e. Full Stack Developer, Architect, 3D Designer, waiter...)".colorize(:light_black)
     puts "(if empty defaults to 'Full Stack Developer')".colorize(:light_black)
@@ -229,8 +230,8 @@ class JobsIndeedController
   end
 
   def show_job_description(job)
+    puts ""
   	puts "here is the description:".colorize(:light_yellow)
-    binding.pry
   	texts = job.description.css('ul' || 'li' ||  'div' || 'p').map(&:text)
   	puts "...".colorize(:blue)
   	texts.each {|t| puts t.colorize(:blue)} if texts
@@ -282,11 +283,12 @@ class JobsIndeedController
     if company
     	print_company(company)
     else
-    	puts "No Company was found with #{name_input} as name"
+    	puts "No Company was found with #{company.name} as name"
     end
   end
 
   def select_company
+    puts ""
   	print "type a Company name:".colorize(:light_yellow)
     puts " (enter the exact company name or anything else to go back to main menu)".colorize(:light_black)
     puts "...".colorize(:light_blue)
@@ -321,6 +323,7 @@ class JobsIndeedController
   end
 
   def wrong_input_msg
+    puts ""
   	puts "X X X X X X X X X".colorize(:light_blue)
 		puts 'you insert the wrong action/input'.colorize(:light_magenta)
 		puts "X X X X X X X X X".colorize(:light_blue)

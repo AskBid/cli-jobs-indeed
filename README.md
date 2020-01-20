@@ -1,5 +1,6 @@
 # Jobs Indeed CLI Scraper
-This CLI will allow you to create searches, by Job Position and Location (UK), with http://www.indeed.co.uk/. You will be able to create multiple searches and then compare and analyse each of them for example getting where the higher salaries are.
+This CLI will allow you to search for different Job Position (by http://www.indeed.co.uk/). 
+You will be able to create multiple searches and then compare and analyse each of them for example getting the higest paid job between all the searches.
 
 ## Installation
 Prerequisite: you have `ruby`,`gem` and `bundle` installed
@@ -8,7 +9,7 @@ Clone the gihub repository locally.
 
 	$ git clone git@github.com:AskBid/cli-jobs-indeed.git
 
-Inside the project directory install all the dependecies library.
+once in the project directory, install all the dependecies by executing:
 
 	$ bundle install
 
