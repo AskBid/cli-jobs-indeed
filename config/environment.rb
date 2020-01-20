@@ -1,12 +1,6 @@
 require 'bundler'
 
 require 'open-uri'
-require 'nokogiri'
-
-require 'colorize'
-# require 'FriendlyNumbers'
-
-require 'pry'
 
 Bundler.require
 

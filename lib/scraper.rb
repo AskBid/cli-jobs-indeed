@@ -7,7 +7,7 @@ class Scraper
 		position = dash_words(position)
 		city = dash_words(city)
 		url = "#{BASE}/#{position}-jobs-in-#{city}"
-		@page = Nokogiri::HTML( open(url) )
+		@page = Nokogiri::HTML(open(url))
 		
 		@search = Search.new(url)
 		@search.position = position
