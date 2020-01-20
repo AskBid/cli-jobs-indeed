@@ -27,8 +27,8 @@ class Search
 
   def merge(search2merge)
   	search2merge.jobs.each {|job2merge| self.add_job(job2merge)}
-  	self.position =+ " + #{search2merge.position}"
-  	self.city =+ " + #{search2merge.city}"
+  	self.position += " + #{search2merge.position}" if search2merge.position != self.position
+  	self.city += " + #{search2merge.city}" if search2merge.city != self.city
   end
 
   def average
