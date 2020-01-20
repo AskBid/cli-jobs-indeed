@@ -2,7 +2,7 @@ require 'bundler'
 
 require 'open-uri'
 
-Bundler.require
+Bundler.require(:default, :development)
 
 module Concerns
 	module Findable

@@ -2,8 +2,15 @@
 This CLI will allow you to create searches, by Job Position and Location (UK), with http://www.indeed.co.uk/. You will be able to create multiple searches and then compare and analyse each of them for example getting where the higher salaries are.
 
 ## Installation
+Prerequisite: you have `ruby`,`gem` and `bundle` installed
 
-    $ gem 
+Clone the gihub repository locally.
+
+	$ git clone git@github.com:AskBid/cli-jobs-indeed.git
+
+Inside the project directory install all the dependecies library.
+
+	$ bundle install
 
 ## Usage
 
