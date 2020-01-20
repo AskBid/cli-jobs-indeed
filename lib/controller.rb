@@ -230,9 +230,10 @@ class JobsIndeedController
 
   def show_job_description(job)
   	puts "here is the description:".colorize(:light_yellow)
+    binding.pry
   	texts = job.description.css('ul' || 'li' ||  'div' || 'p').map(&:text)
   	puts "...".colorize(:blue)
-  	puts texts[0].colorize(:blue)
+  	texts.each {|t| puts t.colorize(:blue)} if texts
   	puts "...".colorize(:blue)
   	puts "  for more details visit the job posting URL: ".colorize(:light_black)
 		puts "#{job.url}".colorize(:black)
