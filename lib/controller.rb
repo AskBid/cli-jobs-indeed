@@ -219,7 +219,8 @@ class JobsIndeedController
   		print "  in     : ".colorize(:light_black)
   		puts "#{job.location}".colorize(:red)
   		print "  company: ".colorize(:light_black)
-  		puts "#{job.company.name}".colorize(:light_red)
+  		puts "#{job.company.name}".colorize(:green) if job.company.rating != "N/A"
+      puts "#{job.company.name}".colorize(:light_red) if job.company.rating == "N/A"
   		print "  terms  : ".colorize(:light_black)
   		puts "#{job.contract ? job.contract : "N/A"}".colorize(:red)
   		print "  salary : ".colorize(:light_black)
