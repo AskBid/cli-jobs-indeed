@@ -25,10 +25,10 @@ class ScraperJob
 			#company has a company page
 			url = company_div.css('a').first.attribute('href').value
 			co = Company.find_or_create(company_div.css('a')[0].text)
-			if !co.url
+			if co.url == 'N/A'
 				co.url = url
 			end
-			if !co.rating
+			if co.rating == 'N/A'
 				ScraperCo.new(co).company
 			else
 				co
