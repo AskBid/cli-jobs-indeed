@@ -98,15 +98,12 @@ class JobsIndeedController
     puts "get highest paid job".colorize(:yellow)
 
     print "6: ".colorize(:light_yellow)
-    puts "check company rating".colorize(:yellow)
+    puts "check company".colorize(:yellow)
 
     print "7: ".colorize(:light_yellow)
-    puts "list all the jobs for a company".colorize(:yellow)
-
-    print "8: ".colorize(:light_yellow)
     puts "List searches".colorize(:yellow)
 
-    print "9: ".colorize(:light_yellow)
+    print "8: ".colorize(:light_yellow)
     puts "quit! (your job?)".colorize(:yellow)
     puts "...".colorize(:light_blue)
 
@@ -131,15 +128,12 @@ class JobsIndeedController
     		highest_salary
     		main_menu
     	when '6'
-    		company_rating
-    		main_menu
-    	when '7'
     		company_jobs
     		main_menu
-    	when '8'
+    	when '7'
     		list_searches
     		main_menu
-    	when '9'
+    	when '8'
     		puts "--------------------------------------".colorize(:light_blue)
     		puts "!!!                                !!!".colorize(:light_blue)
     		puts '   We wish you the best of luck! :)   '.colorize(:light_magenta)
@@ -219,8 +213,11 @@ class JobsIndeedController
   		print "  in     : ".colorize(:light_black)
   		puts "#{job.location}".colorize(:red)
   		print "  company: ".colorize(:light_black)
-  		puts "#{job.company.name}".colorize(:green) if job.company.rating != "N/A"
-      puts "#{job.company.name}".colorize(:light_red) if job.company.rating == "N/A"
+      if job.company.rating != "N/A"
+  		  puts "#{job.company.name}".colorize(:green) 
+      else
+        puts "#{job.company.name}".colorize(:light_red)
+      end
   		print "  terms  : ".colorize(:light_black)
   		puts "#{job.contract ? job.contract : "N/A"}".colorize(:red)
   		print "  salary : ".colorize(:light_black)
@@ -279,15 +276,6 @@ class JobsIndeedController
 		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".colorize(:light_blue)
   end
 
-  def company_rating
-  	company = select_company
-    if company
-    	print_company(company)
-    else
-    	puts "No Company was found with #{company.name} as name"
-    end
-  end
-
   def select_company
     puts ""
   	print "type a Company name:".colorize(:light_yellow)
@@ -311,12 +299,16 @@ class JobsIndeedController
   end
 
   def company_jobs
-  	company = select_company
-  	jobs = company.jobs if company
-  	if jobs
-  		print_company(company)
-  		print_jobs(jobs)
-  	end
+    company = select_company
+    if company
+      print_company(company)
+      jobs = company.jobs if company
+      if jobs
+        print_jobs(jobs)
+      end
+    else
+      puts "No Company was found with #{company.name} as name"
+    end
   end
 
   def display_currency(number)
